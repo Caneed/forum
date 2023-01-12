@@ -21,6 +21,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/admin', require('./routers/adminRouter'))
 //类别路由的注册
 app.use('/category',require('./routers/categoryRouter.js'))
+// 博客路由注册
+app.use('/blog',require('./routers/blogRouter.js'))
 // 上传
 const update = multer({
   dest: './public/upload/temp'

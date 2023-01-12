@@ -14,7 +14,6 @@ db.async={}
 db.async.all=(sql,params)=>{
   return new Promise((resolve,reject)=>{
     db.all(sql,params,(err,rows)=>{
-      console.log('err:',err,'rows:',rows);
       resolve({err,rows})
     })
   })

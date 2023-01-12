@@ -6,8 +6,6 @@ const router = express.Router()
 
 const { db, genid } = require('../db/dbUtil')
 
-// 列表接口
-
 // 添加接口
 router.post('/add', async (req, res) => {
   // 添加种类
@@ -33,7 +31,6 @@ router.post('/add', async (req, res) => {
 router.put('/update', async (req, res) => {
   // 添加种类
   let { id, name } = req.body
-  console.log(id,name);
   const update_sql = 'UPDATE `category` SET `name`=? WHERE `id`=?'
   let {err}=db.async.run(update_sql,[name,id])
   if(err==null){
@@ -71,20 +68,20 @@ router.delete('/delete', async (req, res) => {
 // 列表接口
 router.get('/list', async (req, res) => {
   const list_sql = 'SELECT * FROM `category`'
-  let { err, rows } = db.async.all(list_sql, [])
-  console.log(rows)
-  if (err == null) {
-    res.send({
-      code: 200,
-      msg: '查询成功',
-      rows
-    })
-  } else {
-    res.send({
-      code: 500,
-      msg: '查询失败'
-    })
-  }
+  db.all(list_sql,[],(err,rows)=>{
+    if (err == null) {
+      res.send({
+        code: 200,
+        msg: '查询成功',
+        rows
+      })
+    } else {
+      res.send({
+        code: 500,
+        msg: '查询失败'
+      })
+    }
+  })
 })
 
 module.exports = router
