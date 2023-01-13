@@ -66,7 +66,12 @@ router.delete('/delete',async(req,res)=>{
 // 查询博客
 router.get('/search', async (req, res) => {
   // 前端传入关键字，进行一个模糊查询
-  let {key_word}=req.body
+  let {key_word,category_id,page,pageSize}=req.query
+  // 判断是否传入这些参数
+  page=page==null?1:page
+  pageSize=pageSize==null?10:pageSize
+  category_id=category_id==null?0:category_id
+  key_word=key_word==null?'':key_word
   let search_sql=''
 })
 
