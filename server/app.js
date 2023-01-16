@@ -17,17 +17,19 @@ app.use(function (req, res, next) {
 // json中间件
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+// 上传
+const update = multer({
+  dest: './public/upload/temp'
+})
+app.use(update.any())
 // 用户路由的注册
 app.use('/admin', require('./routers/adminRouter'))
 //类别路由的注册
 app.use('/category',require('./routers/categoryRouter.js'))
 // 博客路由注册
 app.use('/blog',require('./routers/blogRouter.js'))
-// 上传
-const update = multer({
-  dest: './public/upload/temp'
-})
-app.use(update.any())
+// 上传路由的注册
+app.use('/upload',require('./routers/uploadRouter.js'))
 
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => console.log(`Example app listening on http://localhost:${port}`))
