@@ -1,5 +1,6 @@
 const express = require('express')
 const multer = require('multer')
+const path=require('path')
 // 引入body-parser解决body为undefined的问题
 const app = express()
 const port = 3000
@@ -22,7 +23,8 @@ const update = multer({
   dest: './public/upload/temp'
 })
 app.use(update.any())
-// 用户路由的注册
+app.use(express.static(path.join(__dirname,'public')))
+// sdaa用户路由的注册
 app.use('/admin', require('./routers/adminRouter'))
 //类别路由的注册
 app.use('/category',require('./routers/categoryRouter.js'))
