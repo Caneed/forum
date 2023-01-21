@@ -8,7 +8,7 @@ const { db, genid } = require('../db/dbUtil')
 const date = new Date()
 
 // 添加博客
-router.post('/add', async (req, res) => {
+router.post('/_token/add', async (req, res) => {
   // 前端传来分类id，题目，内容
   let { category_id, title, content } = req.body
   let insert_sql = 'INSERT INTO `blog` (`id`,`category_id`,`title`,`content`,`createdAt`,`updatedAt`) VALUES (?,?,?,?,?,?)'
@@ -27,7 +27,7 @@ router.post('/add', async (req, res) => {
   })
 })
 // 修改博客
-router.put('/update', async (req, res) => {
+router.put('/_token/update', async (req, res) => {
   // 前端传来id,分类id，题目，内容
   let {id,category_id, title, content } = req.body
   let update_sql = 'UPDATE `blog`  SET `title`=?,`content`=?,`category_id`=?,`updatedAt`=? WHERE `id` =?'
@@ -46,7 +46,7 @@ router.put('/update', async (req, res) => {
   })
 })
 // 删除博客
-router.delete('/delete',async(req,res)=>{
+router.delete('/_token/delete',async(req,res)=>{
   let {id}=req.body
   let delete_sql='DELETE FROM `blog` WHERE `id`=?'
   db.run(delete_sql,[id],(err,rows)=>{

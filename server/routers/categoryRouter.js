@@ -7,7 +7,7 @@ const router = express.Router()
 const { db, genid } = require('../db/dbUtil')
 
 // 添加接口
-router.post('/add', async (req, res) => {
+router.post('/_token/add', async (req, res) => {
   // 添加种类
   // 将name属性从请求体中解构出来
   let { name } = req.body
@@ -28,20 +28,7 @@ router.post('/add', async (req, res) => {
 })
 
 // 修改接口
-router.put('/update', async (req, res) => {
-  // 前端传入一个token,后端接收此token来进行查询是否admin表中有这个token
-  let token = req.headers.token
-  let admin_token_sql = 'SELECT * FROM `admin` WHERE `token`=?'
-  let adminMessage = await db.async.all(admin_token_sql, [token])
-  console.log(token);
-  // 如果查询出错或者是查询出的结果数组长度为0则表示没有进行登录
-  if (adminMessage.err != null || adminMessage.rows.length == 0) {
-    res.send({
-      code: 403,
-      msg: '请先登录'
-    })
-    return 
-  }
+router.put('/_token/update', async (req, res) => {
   // 添加种类
   let { id, name } = req.body
   const update_sql = 'UPDATE `category` SET `name`=? WHERE `id`=?'
@@ -61,7 +48,7 @@ router.put('/update', async (req, res) => {
 
 // 删除接口
 // localhost:3000/category/delete?id=XXXXXXX
-router.delete('/delete', async (req, res) => {
+router.delete('/_token/delete', async (req, res) => {
   let id = req.query.id
   const delete_sql = 'DELETE FROM `category` WHERE `id` = ?'
   let { err } = db.async.run(delete_sql, [id])

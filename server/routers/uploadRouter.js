@@ -7,7 +7,7 @@ const fs = require('fs')
 const { db, genid } = require('../db/dbUtil')
 
 
-router.post('/wang_editor_upload', async (req, res) => {
+router.post('/_token/wang_editor_upload', async (req, res) => {
   // 根据wangEditor的上传格式进行上传
   if (!req.files) {
     res.send({
