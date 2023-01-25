@@ -2,7 +2,7 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import { router } from './common/router'
+import { router } from './routers/router'
 import { createPinia } from 'pinia'
 import axios from 'axios'
 import { createDiscreteApi } from 'naive-ui'

@@ -1,6 +1,6 @@
 <template>
   <div class="login-panel">
-    <n-card title="登录界面">
+    <n-card title="后台管理登录">
       <n-form :rules="rules" :model="admin">
         <n-form-item path="account" label="账号">
           <n-input v-model:value="admin.account" placeholder="请输入账号" />
@@ -21,7 +21,9 @@
 import { NCard, NForm, NFormItem, NInput, NCheckbox, NButton } from 'naive-ui';
 import { ref, reactive, inject } from 'vue'
 import { userStore } from '../stores/userStore.js'
-
+import { useRouter, useRoute } from 'vue-router';
+const router = useRouter()
+const route = useRoute()
 // 得到全局提供的axios
 const axios = inject('axios')
 // 依赖注入消息组件
@@ -32,7 +34,7 @@ const adminStore = userStore()
 const admin = reactive({
   //首先查看localStorage中是否存有用户信息，否则为空
   account: localStorage.getItem('account') || '',
-  password: localStorage.getItem('account') || '',
+  password: localStorage.getItem('password') || '',
   remember: localStorage.getItem('remember') == 1
 })
 
@@ -71,6 +73,8 @@ const login = async () => {
       localStorage.setItem('remember', admin.remember ? 1 : 0)
     }
     message.success('登录成功!')
+    // 跳转页面
+    router.push('/dashboard')
   } else {
     // 请求失败
     message.error('登录失败')
