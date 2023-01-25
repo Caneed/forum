@@ -13,8 +13,7 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Headers', '*')
   // 允许跨域请求的方法
   res.header('Access-Control-Allow-Methods', 'DELETE,PUT,GET,POST,OPTIONS')
-  if (req.method === 'OPTIONS') res.sendState(200)
-  else next()
+  next()
 })
 // json中间件
 app.use(express.json())
