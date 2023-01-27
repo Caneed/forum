@@ -31,8 +31,8 @@ onMounted(() => {
 
 // 添加类别点击确定按钮的回调
 const addConfirm = async () => {
-  // 请求接口进行添加,此接口需要在头部添加token
-  let res = await axios.post('category/_token/add', { name: addCategory.name }, { headers: { token: adminStore.token } })
+  // 请求添加接口
+  let res = await axios.post('category/_token/add', { name: addCategory.name })
   if (res.data.code == 403) {
     // 没有登录
     message.error(res.data.msg)
@@ -43,6 +43,18 @@ const addConfirm = async () => {
   showAddModal.value = false
   //重新载入数据
   loadData()
+}
+
+// 删除方法
+const deleteCategory = async (category) => {
+  let res = await axios.delete(`category/_token/delete?id=${category.id} `,)
+  if (res.data.code == 200) {
+    // 删除成功
+    message.success(res.data.msg)
+    loadData()
+  } else {
+    message.error(res.data.msg)
+  }
 }
 
 </script>
@@ -66,7 +78,7 @@ const addConfirm = async () => {
           <td>
             <n-space>
               <n-button strong secondary type="info">修改</n-button>
-              <n-button strong secondary type="error">删除</n-button>
+              <n-button strong secondary type="error" @click="deleteCategory(category)">删除</n-button>
             </n-space>
           </td>
         </tr>
